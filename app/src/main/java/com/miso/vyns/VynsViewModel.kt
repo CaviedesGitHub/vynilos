@@ -22,7 +22,8 @@ class VynsViewModel: ViewModel() {
         getVynsAlbums()
     }
 
-    private fun getVynsAlbums() {
+    //private
+    fun getVynsAlbums() {
         viewModelScope.launch {
             try {
                 val listResult = VynsApi.retrofitService.getAlbums()

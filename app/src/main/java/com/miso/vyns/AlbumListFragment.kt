@@ -7,7 +7,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.miso.vyns.adapters.AlbumItemAdapter
+import com.miso.vyns.data.DataSource
 import com.miso.vyns.databinding.FragmentAlbumListBinding
+
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -21,6 +26,7 @@ private const val ARG_PARAM2 = "param2"
  */
 class AlbumListFragment : Fragment() {
     private lateinit var binding: FragmentAlbumListBinding
+    private lateinit var recyclerView: RecyclerView
     private val viewModel: VynsViewModel by viewModels()
 
     // TODO: Rename and change types of parameters
@@ -47,7 +53,12 @@ class AlbumListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val myDataset = DataSource().loadAlbums()
         binding.lifecycleOwner = viewLifecycleOwner
+        recyclerView = binding.recyclerView
+        recyclerView.layoutManager = LinearLayoutManager(context)
+        recyclerView.adapter = AlbumItemAdapter(myDataset)
+        recyclerView.setHasFixedSize(true)
     }
 
     companion object {
